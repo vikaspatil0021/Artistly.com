@@ -36,10 +36,6 @@ const components: { title: string, href: string }[] = [
     {
         title: "Onboard Artist",
         href: "/onboard-artist"
-    },
-    {
-        title: "Dashboard",
-        href: "/dashboard"
     }
 ]
 

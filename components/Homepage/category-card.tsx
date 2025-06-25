@@ -1,8 +1,10 @@
+import Link from "next/link";
 import Image from "next/image"
 import { motion } from "motion/react";
 
+import { CategoryCardOptions } from "@/data/categories";
+
 import { Card, CardContent } from "@/components/ui/card"
-import Link from "next/link";
 
 
 export default function CategoryCard(
@@ -10,11 +12,7 @@ export default function CategoryCard(
         category,
         title,
         src
-    }: {
-        category: string;
-        title: string;
-        src: string;
-    }
+    }: CategoryCardOptions
 ) {
 
     return (

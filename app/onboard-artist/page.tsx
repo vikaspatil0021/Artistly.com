@@ -1,6 +1,9 @@
-"use client"
-
+import { Metadata } from "next";
 import ArtistOnboardForm from "@/components/ArtistOnboardPage/artist-onboard-form";
+
+export const metadata: Metadata = {
+    title: "Artist onboard - Artistly.com",
+};
 
 export default function ArtistOnboardPage() {
 

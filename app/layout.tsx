@@ -1,8 +1,12 @@
+import "./globals.css";
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+
 import Header from "@/components/Header";
+
 import { ThemeProvider } from "@/components/theme-provider";
+import MainLayout from "@/components/main-layout";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,8 +40,14 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Header />
-          {children}
+          <div className="relative mx-auto max-w-7xl ">
+
+            <Header />
+            <MainLayout >
+              {children}
+            </MainLayout>
+
+          </div>
         </ThemeProvider>
       </body>
     </html>

@@ -24,7 +24,7 @@ export default function ArtistCard({
                 <h3 className="text-lg font-semibold">{name}</h3>
                 <div className="text-sm dark:text-white/60 flex justify-between">
                     <span> {location}</span>
-                    <span> {price}</span>
+                    <span>  ₹{price[0]} – ₹{price[1]}</span>
                 </div>
                 <button className="w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">
                     Ask for Quote

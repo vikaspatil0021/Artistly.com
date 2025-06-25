@@ -5,8 +5,9 @@ import { useEffect, useState } from "react"
 
 import { Artist, artists } from "@/data/artists"
 
-import ArtistCard from "@/components/Artistspage/artist-card"
+import { Slider } from "../ui/slider"
 import BaseSelect from "./base-select"
+import ArtistCard from "@/components/Artistspage/artist-card"
 
 import { categoryOptions, locationOptions } from "@/data/select-options"
 
@@ -17,40 +18,62 @@ export default function ArtistListingPage() {
     const [filters, setFilters] = useState({
         category: "all",
         location: "all",
+        priceRange: [14000, 60000]
     });
 
 
     useEffect(() => {
-        const { category, location } = filters;
+        const { category, location, priceRange: [pr1, pr2] } = filters;
 
         const filteredData = artists?.filter((each: Artist) => {
 
             const categoryMatches = category !== "all" ? each.category.toLowerCase().includes(category.toLowerCase()) : true;
             const locationMatches = location !== "all" ? each.location.toLowerCase().includes(location.toLowerCase()) : true;
-            return categoryMatches && locationMatches;
+
+            const priceRangeMatches = (pr1 !== 14000 || pr2 !== 60000) ? (() => {
+
+                const [minStr, maxStr] = each.price;
+                return minStr >= pr1 && maxStr <= pr2;
+
+            })() : true;
+
+            return categoryMatches && locationMatches && priceRangeMatches;
         });
 
         setFilteredArtists(filteredData);
 
-    }, [filters])
-
-
+    }, [filters]);
 
     return (
         <>
-            <div className="flex gap-2 justify-end items-center py-5">
-                <span className="opacity-80">Filter:</span>
+            <div className="flex flex-col items-center sm:items-end gap-5 pb-5">
+                {/* filters */}
+                <div className="flex flex-col gap-3 max-w-72 w-full">
+                    <span className="text-center">
+                        Price: ₹{filters.priceRange[0]} – ₹{filters.priceRange[1]}
+                    </span>
+                    <Slider
+                        value={filters.priceRange}
+                        min={14000} max={60000} step={2000}
+                        onValueChange={(val) => setFilters((prev) => ({ ...prev, priceRange: val }))}
+                        className="w-72"
+                    />
+                </div>
 
-                <BaseSelect
-                    placeholder="Category"
-                    options={categoryOptions}
-                    setFilters={setFilters}
-                />
-                <BaseSelect
-                    placeholder="Location"
-                    options={locationOptions}
-                    setFilters={setFilters}
-                />
+                <div className="flex w-full justify-center sm:justify-end gap-2">
+
+                    <BaseSelect
+                        placeholder="Category"
+                        options={categoryOptions}
+                        setFilters={setFilters}
+                    />
+                    <BaseSelect
+                        placeholder="Location"
+                        options={locationOptions}
+                        setFilters={setFilters}
+                    />
+                </div>
+
             </div>
 
             <motion.div

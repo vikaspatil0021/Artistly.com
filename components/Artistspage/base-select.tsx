@@ -19,7 +19,7 @@ export default function BaseSelect({
 }: {
     placeholder: string,
     options: LocationOptions | CategoryOptions,
-    setFilters: Dispatch<SetStateAction<{ category: string; location: string; }>>
+    setFilters: Dispatch<SetStateAction<{ category: string; location: string; priceRange: number[]; }>>
 }) {
 
     const updateFilters = (val: string) => setFilters((prev) => (placeholder == 'Location' ? { ...prev, location: val } : { ...prev, category: val }));
